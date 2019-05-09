@@ -3,38 +3,38 @@ package main
 import (
 	"fmt"
 	"math"
+	"reflect"
 )
 
 /*
 	Interface defines list of methods signature - that will be implemented
 	by the concrete structure like Circle and Rectangle.
 
-	Secondly - receiver can be either pointer or value. this cannot be used
+	2. receiver can be either pointer or value. this cannot be used
 	interchange-able. Pointer defined variable cannot use interface defined
 	with pass-by-value receiver.
 
-	Third - interface defined object cannot access structure directly alike
+	3. interface defined object cannot access structure directly alike
 	interface.variable however this needs to be type-casted and then used.
 
-	Fourth - how do i find the data-type of the interface (InterfaceConversionPlay)
+	4.  how do i find the data-type of the interface (InterfaceConversionPlay)
 	==> use <object>.(concrete-type-that-is-implementing-interface)
 	Type Assertion (
 	https://golang.org/ref/spec#Type_assertions
 	https://stackoverflow.com/questions/38816843/explain-type-assertions-in-go)
 
 	Fifth: Interface variable cannot be nil like a pointer cannot be nil.
- */
+*/
 type Shape interface {
 	Area() float64
-	Name()	string
+	Name() string
 }
 
 type Circle struct {
 	Radius float64
 }
 
-
-func (cir *Circle) Area () float64 {
+func (cir *Circle) Area() float64 {
 	return math.Pi * cir.Radius * cir.Radius
 }
 
@@ -44,7 +44,7 @@ func (cir *Circle) Name() string {
 
 type Rectangle struct {
 	Breadth float64
-	Length 	float64
+	Length  float64
 }
 
 func (rec Rectangle) Area() float64 {
@@ -59,22 +59,23 @@ type Square struct {
 	Size float64
 }
 
-func InterfacePlay()  {
+func InterfacePlay() {
 	fmt.Println("*** InterfacePlay ***")
 	var shape Shape
 
 	shape = &Circle{100}
 	fmt.Println("Area of", shape.Name(), shape.Area())
 
-	shape = Rectangle{Length:20, Breadth:40}
+	shape = Rectangle{Length: 20, Breadth: 40}
 	shape.Area()
 	fmt.Println("Area of", shape.Name(), shape.Area())
 }
 
-
-func InterfaceTypeAssertionPlay () {
+func InterfaceTypeAssertionPlay() {
 	var shape Shape
-	shape = &Circle{Radius:10}
+	var ptrCicle *Circle = nil
+
+	shape = &Circle{Radius: 10}
 
 	var ok bool
 	// result in run-time panic with syntax: _ = shape.(Rectangle)
@@ -84,6 +85,12 @@ func InterfaceTypeAssertionPlay () {
 
 	_, ok = shape.(*Circle)
 	fmt.Println("Conversion of circle interface to circle is success", ok)
+
+	// Point 3:
+	//	Interface cannot access the member directly, type cast as below.
+	//	shape.Radius is a compilation error
+	fmt.Println("Radius of Circle: ", shape.(*Circle).Radius)
+	fmt.Println("Cicle ptrCircle: ", ptrCicle)
 
 	/*
 		Square is not interface -> this results in compilation error i.e.
@@ -95,7 +102,6 @@ func InterfaceTypeAssertionPlay () {
 		fmt.Println("Conversion of circle interface to square is success", ok)
 	*/
 
-
 	/*
 		// static-type conversion is a strict check, circle variable is not interface
 		var circle Circle
@@ -104,17 +110,24 @@ func InterfaceTypeAssertionPlay () {
 	*/
 }
 
-func TypeSwitchPlay()  {
+func TypeSwitchPlay() {
 	var shape Shape
 	shape = &Circle{100}
 	//shape = Rectangle{Breadth:100, Length:200}
 
 	switch inter := shape.(type) {
 	case *Circle:
-		fmt.Printf("Circle found [%+v]", inter)
+		fmt.Println("Circle found [%+v]", inter)
 	case Rectangle:
-		fmt.Printf("rectange found [%+v]", inter)
+		fmt.Println("rectange found [%+v]", inter)
 	default:
 		fmt.Println("Interface type found")
 	}
+}
+
+func InterfaceTypeConversion() {
+	fmt.Println("*** InterfaceConversion ***")
+	var store float64 = 40.03
+
+	fmt.Println("float as string ", reflect.ValueOf(store))
 }
