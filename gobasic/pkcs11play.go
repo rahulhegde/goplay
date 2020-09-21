@@ -213,6 +213,15 @@ func DoFabricOperation(p *pkcs11.Ctx, session pkcs11.SessionHandle, altID string
 }
 
 // TestFabricOperation performs fabric alike operations
+//	Here are configuration params -
+// export TEST_LIB_PATH=/usr/lib/softhsm/libsofthsm2.so
+// export TEST_CKU_USER=9876
+// export TEST_ALT_ID=TestKey
+// export TEST_SESSION_COUNT=10
+// export TEST_THREAD_COUNT=10
+// export TEST_FABRIC_OPS_COUNT=10
+// export TEST_FABRIC_OPS_DELAY=100
+// export TEST_GENERATE_KEY=True
 func TestFabricOperation() {
 	var p *pkcs11.Ctx
 
