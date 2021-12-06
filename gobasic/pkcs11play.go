@@ -317,6 +317,6 @@ func TestFabricOperation() {
 	fmt.Println()
 }
 
-func main() {
-	TestFabricOperation()
-}
+//func main() {
+//	TestFabricOperation()
+//}

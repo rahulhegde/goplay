@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+option go_package = "github.com/rahulhegde/goplay/gobasic/grpcprotobufplay";
+
+
+import "addressbook.proto";
+
+message AddressBookRequest {
+    AddressBook addressBook = 1;
+}
+
+message AddressBookResponse {
+    string response = 1;
+}
+
+service AddressBookApi {
+    rpc SayHello(AddressBookRequest) returns (AddressBookResponse) {}
+}

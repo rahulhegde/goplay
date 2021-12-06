@@ -6,12 +6,12 @@ import (
 )
 
 // Routine player spawing a new thread
-func GoRoutinePlay ()  {
+func GoRoutinePlay() {
 	go GoRoutinePrinter("Rahul", 100)
 	GoRoutinePrinter("Hegde", 200)
 }
 
-func GoRoutinePrinter (name string, d time.Duration) {
+func GoRoutinePrinter(name string, d time.Duration) {
 	for i := 0; i < 2; i++ {
 		fmt.Println("name: ", name)
 		time.Sleep(d * time.Millisecond)
@@ -19,7 +19,7 @@ func GoRoutinePrinter (name string, d time.Duration) {
 }
 
 // channel responder sending back what is sent to u
-func ChannelResponder (test int, channel chan int) {
+func ChannelResponder(test int, channel chan int) {
 	for i := 0; i < 10; i++ {
 		fmt.Println("sending: ", test, i)
 		channel <- test
@@ -31,14 +31,14 @@ func ChannelResponder (test int, channel chan int) {
 func ChannelReceiver(channel chan int) {
 	for i := 0; i < 10; i++ {
 		fmt.Println("receiving: ", i)
-		value := <- channel
+		value := <-channel
 		fmt.Println("received: ", value)
 		time.Sleep(1 * time.Second)
 	}
 }
 
 func GoChannelPlay() {
-	c := make (chan int, 1)
+	c := make(chan int, 1)
 	random := 3210
 	go ChannelResponder(random, c)
 	go ChannelReceiver(c)

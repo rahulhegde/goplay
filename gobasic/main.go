@@ -10,9 +10,12 @@ import (
 	"math"
 	"math/rand"
 	"runtime"
+	"strings"
 	"time"
 
 	"golang.org/x/tour/pic"
+
+	grpcproto "github.com/rahulhegde/goplay/gobasic/grpcprotobufplay"
 )
 
 func Sqrt(value float64) (string, string) {
@@ -74,7 +77,8 @@ func switchUsage(x string) {
 }
 
 func main() {
-	fmt.Println("random = ", rand.Intn(100))
+
+	fmt.Println("random = ", rand.Intn(100), " bitwise = ", 1<<3)
 
 	var i1 = 3
 
@@ -144,11 +148,14 @@ func main() {
 	//GoRoutinePlay()
 	//GoChannelPlay()
 
+	grpcproto.GRPCProtoBufPlay()
+
 	BitwiseCheckPlay()
 
-	ProtoBufPlay()
-
 	ShaPlay()
+
+	NewString := ""
+	strings.EqualFold(NewString, "hello")
 }
 
 type BOOLEAN int
@@ -306,6 +313,9 @@ func SliceDefaultPlay() {
 
 	slicer = arraystub[:3]
 	fmt.Println("slicer2=", slicer, "len=", len(slicer), "cap=", cap(slicer))
+
+	slicer = slicer[:3:3]
+	fmt.Println("increase slicer2=", slicer, "len=", len(slicer), "cap=", cap(slicer))
 
 	slicer = arraystub[2:]
 	fmt.Println("slicer3=", slicer, "len=", len(slicer), "cap=", cap(slicer))
