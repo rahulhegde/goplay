@@ -187,8 +187,7 @@ func (state *BOOLEAN) setFALSE() {
 }
 
 func BitwisePlay() {
-	var state BOOLEAN
-	state = TRUE
+	state := TRUE
 	fmt.Println("state after setting to TRUE: ", state)
 	state.setFALSE()
 	fmt.Println("state after setting to FALSE: ", state)

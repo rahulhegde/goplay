@@ -19,6 +19,7 @@ protoc runtime for protobuf, grpc go -
 
 
 ### Compilation 
+cd /home/developer/workspace/go-ws/src/github.com/rahulhegde/goplay/gobasic/grpcprotobufplay
 protoc -I=./ --go_out=/home/developer/workspace/go-ws/src --go-grpc_out=/home/developer/workspace/go-ws/src ./addressbook.proto
 protoc -I=./ --go_out=/home/developer/workspace/go-ws/src --go-grpc_out=/home/developer/workspace/go-ws/src ./serviceapis.proto
 
